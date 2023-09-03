@@ -43,6 +43,9 @@ var material = new THREE.MeshBasicMaterial({
 });
 var nose_ring = new THREE.Mesh(geometry, material);
 
+//add some texture to the nose ring ...TODO
+
+
 //add the nose ring to the scene
 scene.add(nose_ring);
 
@@ -115,10 +118,10 @@ function onResultsFaceMesh(results) {
   // console.log("z: "+nose_ring.position.z)
 
 
-  /*Scale the nose ring appropriately for each frame*/
+  /*Scale the nose ring appropriately for each frame ...TODO */
   
 
-  /*Orient the nose ring appropriately for each frame*/
+  /*Orient the nose ring appropriately for each frame ...TODO */
 
 
 }
