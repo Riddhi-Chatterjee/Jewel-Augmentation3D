@@ -122,6 +122,7 @@ var nose_ring = nr.entity;
 
 //add the nose ring to the scene
 scene.add(nose_ring);
+var is_nose_ring_rendered = true
 
 // Create a texture from the video element
 const videoTexture = new THREE.VideoTexture(video2);
@@ -195,11 +196,11 @@ function onResultsFaceMesh(results) {
   }
 
 
-  /*Scale the nose ring appropriately for each frame ...TODO */
+  /*Scale the nose ring appropriately for each frame */
   var scale_value = 10*((-0.0062) - nose_ring.position.z)/((-0.0062) - (-0.1593)) + 1
   nose_ring.scale.set(scale_value, scale_value, scale_value)
 
-  /*Orient the nose ring appropriately for each frame ...TODO */
+  /*Orient the nose ring appropriately for each frame */
   var l1 = results.multiFaceLandmarks[0][281]
   var l2 = results.multiFaceLandmarks[0][363]
   var l3 = results.multiFaceLandmarks[0][275]
@@ -238,6 +239,19 @@ function onResultsFaceMesh(results) {
 
   nose_ring.rotation.set(0,0,0)
   nose_ring.rotateOnAxis(axis, angle)
+
+  /*Hiding the nose ring when needed*/
+  //console.log(angle)
+  if(Math.abs(angle) > Math.PI/2 && is_nose_ring_rendered)
+  {
+    scene.remove(nose_ring)
+    is_nose_ring_rendered = false
+  }
+  if(Math.abs(angle) <= Math.PI/2 && !is_nose_ring_rendered)
+  {
+    scene.add(nose_ring)
+    is_nose_ring_rendered = true
+  }
 
 }
 
