@@ -87,6 +87,7 @@ class NoseRing
     setPosOri()
     {
       this.stone.position.set(0,0,0)
+      this.stone.rotation.x = Math.PI/2
       this.stone.scale.set(0.25, 0.25, 0.25)
       this.cylinder1.rotation.z = Math.PI/2
       this.cylinder2.rotation.z = Math.PI/2
@@ -100,7 +101,11 @@ class NoseRing
 
     addDependencies()
     {
-        const AxesHelper = new THREE.AxesHelper();
+        // var arrowPos = new THREE.Vector3( 0,0,0 );
+        // this.entity.add( new THREE.ArrowHelper( new THREE.Vector3( 1,0,0 ), arrowPos, 30, 0xFF0000, 20, 10 ) ); //red
+        // this.entity.add( new THREE.ArrowHelper( new THREE.Vector3( 0,1,0 ), arrowPos, 30, 0x00FF00, 20, 10 ) ); //green
+        // this.entity.add( new THREE.ArrowHelper( new THREE.Vector3( 0,0,1 ), arrowPos, 30, 0x0000FF, 20, 10 ) ); //blue
+
         this.entity.add(this.stone)
         this.stone.add(this.cylinder1)
         this.stone.add(this.cylinder2)
@@ -190,16 +195,16 @@ function onResultsFaceMesh(results) {
 
 
   /*Scale the nose ring appropriately for each frame ...TODO */
-  scale_value = 10*((-0.0062) - nose_ring.position.z)/((-0.0062) - (-0.1593)) + 1
+  var scale_value = 10*((-0.0062) - nose_ring.position.z)/((-0.0062) - (-0.1593)) + 1
   nose_ring.scale.set(scale_value, scale_value, scale_value)
 
   /*Orient the nose ring appropriately for each frame ...TODO */
-  l1 = results.multiFaceLandmarks[0][4]
-  l2 = results.multiFaceLandmarks[0][1]
-  l3 = results.multiFaceLandmarks[0][45]
+  var l1 = results.multiFaceLandmarks[0][281]
+  var l2 = results.multiFaceLandmarks[0][363]
+  var l3 = results.multiFaceLandmarks[0][275]
 
-  v1 = new THREE.Vector3(0, 0, 0)
-  v2 = new THREE.Vector3(0, 0, 0)
+  var v1 = new THREE.Vector3(0, 0, 0)
+  var v2 = new THREE.Vector3(0, 0, 0)
 
   v1.x = l2.x - l1.x
   v1.y = l2.y - l1.y
@@ -208,16 +213,30 @@ function onResultsFaceMesh(results) {
   v2.y = l3.y - l1.y
   v2.z = l3.z - l1.z
 
-  cross_v = new THREE.Vector3(0, 0, 0)
+  var cross_v = new THREE.Vector3(0, 0, 0)
   cross_v.crossVectors(v1, v2)
-  len_cross_v = cross_v.length()
+  var len_cross_v = cross_v.length()
   cross_v.x = cross_v.x/len_cross_v
   cross_v.y = cross_v.y/len_cross_v
   cross_v.z = cross_v.z/len_cross_v
 
-  nose_ring.rotation.x = Math.acos(cross_v.x) 
-  nose_ring.rotation.y = Math.acos(cross_v.y)
-  nose_ring.rotation.z = Math.acos(cross_v.z)
+  // nose_ring.rotation.x = Math.acos(cross_v.x) 
+  // nose_ring.rotation.y = Math.acos(cross_v.y)
+  // nose_ring.rotation.z = Math.acos(cross_v.z)
+
+  var init_normal = new THREE.Vector3(0,0,1)
+  var final_normal = cross_v
+  var axis = new THREE.Vector3(0, 0, 0)
+  axis.crossVectors(init_normal, final_normal)
+  var norm = axis.length()
+  axis.x = axis.x/norm
+  axis.y = axis.y/norm
+  axis.z = axis.z/norm
+
+  var angle = Math.acos(init_normal.dot(final_normal))
+
+  nose_ring.rotation.set(0,0,0)
+  nose_ring.rotateOnAxis(axis, angle)
 
 }
 
