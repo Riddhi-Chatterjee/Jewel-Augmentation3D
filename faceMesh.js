@@ -88,7 +88,7 @@ class NoseRing
     {
       this.stone.position.set(0,0,0)
       this.stone.rotation.x = Math.PI/2
-      this.stone.scale.set(0.25, 0.25, 0.25)
+      this.stone.scale.set(0.20, 0.20, 0.20)
       this.cylinder1.rotation.z = Math.PI/2
       this.cylinder2.rotation.z = Math.PI/2
       this.cylinder3.rotation.z = Math.PI/2
@@ -131,6 +131,7 @@ const planeGeometry = new THREE.PlaneGeometry(window.innerWidth/2, window.innerH
 const planeMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
 
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0,0,-3)
 scene.add(plane);
 
 //Renderer:
