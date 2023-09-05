@@ -44,7 +44,7 @@ class NoseRing
 
         this.stone_length = 5;
         this.stone_breadth = 5;
-        this.stone_depth = 2;
+        this.stone_depth = 3;
         this.stone_texture = new THREE.TextureLoader().load('./textures/ruby.jpg');
         this.stone_material = new THREE.MeshBasicMaterial({map: this.stone_texture});
         this.stone_geometry = new THREE.BoxGeometry(this.stone_breadth, this.stone_depth, this.stone_length, 0, 0, 0);
