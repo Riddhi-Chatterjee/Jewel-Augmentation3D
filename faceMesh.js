@@ -7,25 +7,6 @@ const controlsElement2 = document.getElementsByClassName('control2')[0];
 //create a scene
 const scene = new THREE.Scene();
 
-//width & height calculations:
-const visibleHeightAtZDepth = ( depth, camera ) => {
-  // compensate for cameras not positioned at z=0
-  const cameraOffset = camera.position.z;
-  if ( depth < cameraOffset ) depth -= cameraOffset;
-  else depth += cameraOffset;
-
-  // vertical fov in radians
-  const vFOV = camera.fov * Math.PI / 180; 
-
-  // Math.abs to ensure the result is always positive
-  return 2 * Math.tan( vFOV / 2 ) * Math.abs( depth );
-};
-
-const visibleWidthAtZDepth = ( depth, camera ) => {
-  const height = visibleHeightAtZDepth( depth, camera );
-  return height * camera.aspect;
-};
-
 //create a camera
 const cam = new THREE.PerspectiveCamera(
   90,
@@ -185,8 +166,8 @@ function onResultsFaceMesh(results) {
   /*Position the nose ring appropriately for each frame*/
   // var width = visibleWidthAtZDepth(0, cam)
   // var height = visibleHeightAtZDepth(0, cam)
-  var width = window.innerWidth/2
-  var height = window.innerHeight/2
+  var width = canvas.width
+  var height = canvas.height
 
   var x_avg = 0;
   var y_avg = 0;
