@@ -200,7 +200,7 @@ function onResultsFaceMesh(results) {
   nose_ring.scale.set(scale_value, scale_value, scale_value)
 
   /*Orient the nose ring appropriately for each frame */
-  var l1 = results.multiFaceLandmarks[0][281]
+  var l1 = results.multiFaceLandmarks[0][248]
   var l2 = results.multiFaceLandmarks[0][363]
   var l3 = results.multiFaceLandmarks[0][275]
 
