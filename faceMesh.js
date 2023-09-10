@@ -148,7 +148,23 @@ const animate = () => {
 
 animate();
 
-document.body.appendChild(renderer.domElement);
+var canvas = renderer.domElement
+var container = document.getElementsByClassName('container')[0];
+
+var newdiv = document.createElement("div");
+newdiv.style.marginLeft = "50%";
+newdiv.style.flex = "1";
+let para = document.createElement("p");
+let node = document.createTextNode ('Augmented Output');
+para.appendChild(node)
+para.style.textAlign = "center"
+para.style.marginTop = "7px"
+para.style.color = "lightsalmon"
+newdiv.appendChild(canvas);
+newdiv.appendChild(document.createElement("br"));
+newdiv.appendChild(para);
+document.body.appendChild(newdiv);
+
 
 
 const fpsControl = new FPS();
@@ -167,8 +183,10 @@ function onResultsFaceMesh(results) {
   fpsControl.tick();
 
   /*Position the nose ring appropriately for each frame*/
-  var width = visibleWidthAtZDepth(0, cam)
-  var height = visibleHeightAtZDepth(0, cam)
+  // var width = visibleWidthAtZDepth(0, cam)
+  // var height = visibleHeightAtZDepth(0, cam)
+  var width = window.innerWidth/2
+  var height = window.innerHeight/2
 
   var x_avg = 0;
   var y_avg = 0;
